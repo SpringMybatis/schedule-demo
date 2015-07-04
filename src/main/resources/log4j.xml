@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- 流程执行的日志 -->
+	<appender name="flowServiceLog"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/log_flow.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%5p] %d{yyyy-MM-dd HH:mm:ss}: %-4r [%t] ( %l ) - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 一般日志 -->
+	<appender name="commLog"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/log_comm.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%5p] %d{yyyy-MM-dd HH:mm:ss}: %-4r [%t] ( %l ) - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 控制台输出 -->
+	<appender name="consoleLog"
+		class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%5p] %d{yyyy-MM-dd HH:mm:ss}: %-4r [%t] ( %l ) - %m%n" />
+		</layout>
+	</appender>
+
+
+	<!--公共日志 -->
+	<category name="com.ibs.gbplatform.report.task" additivity="false">
+		<level value="info" />
+		<appender-ref ref="commLog" />
+	</category>
+
+	<!-- 控制台输出 -->
+	<category name="com.ibs.gbplatform.report" additivity="false">
+		<level value="error" />
+		<appender-ref ref="consoleLog" />
+	</category>
+
+	<!-- 流程操作日志 -->
+	<category name="com.ibs.gbplatform.report.task.service.impl" additivity="false">
+		<level value="info" />
+		<appender-ref ref="flowServiceLog" />
+	</category>
+
+
+	<!--
+		<root>
+			<level value="off" />
+			<appender-ref ref="consoleLog" />
+			<appender-ref ref="flowServiceLog" />
+			<appender-ref ref="commLog" />
+		</root>
+		-->
+</log4j:configuration>

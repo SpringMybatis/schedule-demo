@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/cache 
+	http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+	">
+	
+	<bean name="sayHelloProcess" class="com.ibs.zj.job.runjob.flow.SayHelloProcess"></bean>
+	<bean name="sayGoodProcess" class="com.ibs.zj.job.runjob.flow.SayGoodProcess"></bean>
+	<bean name="sayGoodByeProcess" class="com.ibs.zj.job.runjob.flow.SayGoodByeProcess"></bean>
+
+	<!--定时任务job的配制 -->
+	<bean name="jobRunService" class="com.ibs.zj.job.runjob.ExecJobInit">
+		<property name="jobExecuteFlow">
+			<list>
+				<ref bean="sayHelloProcess" />
+				<ref bean="sayGoodProcess" />
+				<ref bean="sayGoodByeProcess" />
+			</list>
+		</property>
+	</bean>
+
+</beans>
